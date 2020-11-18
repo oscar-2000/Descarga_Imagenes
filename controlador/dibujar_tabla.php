@@ -32,8 +32,11 @@ function ObtenerTamañoArchivo($link, $fallback_to_download = false)
     <td class="text-center"><?php echo $resolucion[0]?> x <?php echo $resolucion[1]?></td>
     <td class="text-center"><?php echo round(ObtenerTamañoArchivo($link),2);?> KB</td>
     <td class="text-center">
-        <button class="btn btn-success" data-toggle="modal" id="boton_imagen" value="<?php echo $link;?>" data-target="#modal_imagen" onclick="VerImagen(this.value);">Ver</button>
-        <button class="btn btn-danger ml-2" data-toggle="modal" id="boton_eliminar" value="<?php echo $link;?>" data-target="#eliminar_imagen" onclick="EliminarImagen(this.value);">Eliminar</button>
+        <form action="prueba.php" method="POST">
+            <button type="button" class="btn btn-success" value="<?php echo $link;?>" onclick="Descargar(this.value)">Descargar</button>
+            <button class="btn btn-primary" type="button" data-toggle="modal" id="boton_imagen" value="<?php echo $link;?>" data-target="#modal_imagen" onclick="VerImagen(this.value);">Ver</button>
+            <button class="btn btn-danger" type="button" data-toggle="modal" id="boton_eliminar"value="<?php echo $link;?>" data-target="#eliminar_imagen" onclick="EliminarImagen(this.value);">Eliminar</button>
+        </form>
     </td>
 </tr>
 
