@@ -11,8 +11,9 @@
             <!-- FORMULARIO -->
             <label>Link</label>
             <input type="text" placeholder="Ingresar Link" id="link" name="link">
-            <button type="button" class="btn btn-primary" onclick="MisImagenes();">Guardar a la lista</button><br>
-            <h5 id="total_imagenes">Total imagenes:</h5>
+            <button type="button" class="btn btn-primary" onclick="MisImagenes();">Guardar a la lista</button>
+            <button type="button" class="btn btn-success" onclick="DescargarTodo();" id="descarga_todo">Descargar todo</button><br>
+            <h5 id="total_imagenes">Total imagenes:</h5><br>
 
             <!-- MENSAJES-->
             <div class="alert alert-danger mt-2" role="alert" id="error" hidden="hidden">
@@ -67,42 +68,87 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <script>
+    function Imagenes(imagen){
+        /* const imagenes = [""];
+        var texto = "";
+        var otro = texto+imagen;
+        imagenes.push(imagen);
+        console.log(otro); */
+    }
     function MisImagenes() 
     {
         $("#error").attr("hidden","hidden");
         var link = $("#link").val();
         var contador_imagenes = $("#tabla tr").length;
-        if(link != ""){
-            $.post("http://localhost/Descarga_Imagenes/controlador/comprobar.php",
-                {link: link},
-                function(result){
-                    if(result.trim() == "existe"){
-                        $.post("http://localhost/Descarga_Imagenes/controlador/dibujar_tabla.php",
-                            {link : link, contador_imagenes : contador_imagenes},
-                            function(result){
-                                var total = $("#total_imagenes").html("Total imagenes: "+contador_imagenes);
-                                total+=contador_imagenes;
-                                $("#contador_imagen").val(contador_imagenes);
-                                $("#link").val("");
-                                $("#exito").removeAttr("hidden");
-                                $("#descargado").attr("hidden","hidden");
-                                $("#dibujar_tabla").append(result);
-                            }
-                        );
-                    }
-                    else if(result.trim() == "NULL"){
-                        $("#exito").attr("hidden","hidden");
-                        $("#error").removeAttr("hidden");
-                    }else{
-                        $("#exito").attr("hidden","hidden");
-                        $("#error").removeAttr("hidden");
-                    }
+        if(link != "")
+        {
+            var repetida = false;
+            var imagenes = [];
+            $('.boton-descargar').each(function(index,value) {
+                var prueba = $(value).val();
+                imagenes.push(prueba);
+            });
+            for(var i = 0; i < imagenes.length;i++){
+                if(imagenes[i] == link){
+                    alert("Imagen ya esta en la lista");
+                    repetida = true;
                 }
-            );
-            
+                else{repetida = false;}
+            }
+            if(repetida == false)
+            {
+                $.post("http://localhost/Descarga_Imagenes/controlador/comprobar.php",
+                    {link: link},
+                    function(result){
+                        if(result.trim() == "existe"){
+                            $.post("http://localhost/Descarga_Imagenes/controlador/dibujar_tabla.php",
+                                {link : link, contador_imagenes : contador_imagenes},
+                                function(result){
+                                    var total = $("#total_imagenes").html("Total imagenes: "+contador_imagenes);
+                                    total+=contador_imagenes;
+                                    $("#contador_imagen").val(contador_imagenes);
+                                    $("#link").val("");
+                                    $("#exito").removeAttr("hidden");
+                                    $("#descargado").attr("hidden","hidden");
+                                    $("#dibujar_tabla").append(result);
+                                }
+                            );
+                        }
+                        else if(result.trim() == "NULL"){
+                            $("#exito").attr("hidden","hidden");
+                            $("#error").removeAttr("hidden");
+                        }else{
+                            $("#exito").attr("hidden","hidden");
+                            $("#error").removeAttr("hidden");
+                        }
+                    }
+                );
+            }
         }
         else{
             $("#error").removeAttr("hidden");
+        }
+    }
+    function DescargarTodo(){
+        var imagenes = [];
+        $('.boton-descargar').each(function(index,value) {
+            var prueba = $(value).val();
+            imagenes.push(prueba);
+        });
+        if(imagenes.length == 0){
+            alert("Ingrese una imagen");
+        }
+        else if(imagenes.length > 0){
+            $.post("http://localhost/Descarga_Imagenes/controlador/descarga_multiple.php",
+            {imagenes: imagenes},
+                function(result){
+                    if(result.trim() == "exito"){
+                        alert("Se ha descargado todas las imagenes");
+                    }else{
+                        alert("Ha fallado la descarga de todas las imagenes")
+                    }
+                }
+            );
         }
     }
 

@@ -6,10 +6,10 @@ if(isset($url))
    {
       $nombre = uniqid() . ".jpg";
       $dir = "C:/Users/Oscar/Downloads/TRANSFERIR/";
-
       $imagen = file_get_contents($_POST["url"]); //OBTENEMOS IMAGEN
       file_put_contents($dir . $nombre,$imagen);
-      }      
+      echo "exito";
+   }      
    catch(Exception $e){
       echo "Ha ocurrido un error: ".$e;
    }      
