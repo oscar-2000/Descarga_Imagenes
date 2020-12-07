@@ -27,7 +27,7 @@ function ObtenerTamañoArchivo($link, $fallback_to_download = false)
 }
 
 ?>
-<tr id="linea" value="<?php echo $link;?>" class="imagenes">
+<tr id="<?php echo $link;?>" value="<?php echo $link;?>" class="imagenes">
     <th scope="row" id="numero_fila"><?php echo $contador_imagenes; ?></th>
     <td class="text-center"><?php echo $resolucion[0]?> x <?php echo $resolucion[1]?></td>
     <td class="text-center"><?php echo round(ObtenerTamañoArchivo($link),2);?> KB</td>

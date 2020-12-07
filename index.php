@@ -27,6 +27,10 @@
             <h5 id="total_imagenes">Total imagenes:</h5><br>
 
             <!-- MENSAJES-->
+            <div class="btn-group" role="group" aria-label="Basic example" id="mensaje_descarga" hidden>
+                <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                <span>Descargando..</span>
+            </div>
             <div class="alert alert-danger mt-2" role="alert" id="error" hidden="hidden">
             Ha ocurrido un problema!
             </div>
@@ -36,7 +40,10 @@
             <div class="alert alert-success mt-2" role="alert" id="descargado" hidden="hidden">
             Se ha descargado correctamente
             </div>
-            <label>By Souls</label><img src="img/pepega.gif" width="60px" heigh="auto"/>
+            <br>
+            <label>By Souls</label>
+            <img src="img/pepega.gif" width="60px" heigh="auto"/>
+            
             <!-- TABLA -->
             <table class="table" style="width:75%;" id="tabla">
                 <tr>

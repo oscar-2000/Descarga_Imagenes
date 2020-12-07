@@ -61,6 +61,7 @@ function AñadirImagen()
     }
 }
 function DescargarTodo(){
+    $("#mensaje_descarga").removeAttr("hidden");
     var imagenes = [];
     var opcion = $("#selec_compresion option:selected").val();
     $('.boton-descargar').each(function(index,value) {
@@ -77,10 +78,12 @@ function DescargarTodo(){
                 if(result.trim() == "exito"){
                     alert("Se ha descargado todas las imagenes");
                     window.location.href="controlador/descarga.zip";
+                    $("#mensaje_descarga").attr("hidden","hidden");
                 }
                 else if(result.trim() == "exito_no_compresion")
                 {
                     alert("Se ha descargado todas las imagenes");
+                    $("#mensaje_descarga").attr("hidden","hidden");
                 }
                 else{
                     alert("Ha fallado la descarga de todas las imagenes");
@@ -120,9 +123,7 @@ function VerImagen(link)
 function EliminarImagen(link)
 {
     /* OBTENER ACTUALES TR */
-    var contador = $("#tabla tr").length-2;
-    var id_td = document.getElementById("linea");
-    id_td.value = link;
+    var id_td = document.getElementById(link);
     var td = document.getElementById("dibujar_tabla");
     td = id_td.parentNode;
     td.removeChild(id_td);
