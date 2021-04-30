@@ -8,19 +8,24 @@
         <script src="controlador/funciones.js" type="text/javascript"></script>
     </head>
     <body>
+        <style>
+            .alert{
+                width: 75% !important;
+            }
+        </style>
         <div class="container mt-3">
             <!-- FORMULARIO -->
             <label>URL</label>
             <input type="text" placeholder="Ingresar URL" id="link" name="link">
             <button type="button" class="btn btn-primary" onclick="AñadirImagen();">Guardar a la lista</button>
-            <button type="button" class="btn btn-success" onclick="DescargarTodo();">Descargar todo</button><br>
+            <button type="button" class="btn btn-success" id="descargar_todo" onclick="DescargarTodo();">Descargar todo</button><br>
             <!-- ELECCION DE COMPRESION DE ARCHIVO -->
             <div class="input-group mb-3 mt-3" style="width:50vh">
                 <div class="input-group-prepend">
                     <label class="input-group-text">Compresion de archivo</label>
                 </div>
-                <select class="custom-select" id="selec_compresion">
-                    <option value="0">Ninguno</option>
+                <select id="selec_compresion">
+                    <option value="0" selected>Ninguno</option>
                     <option value="1">ZIP</option>
                 </select>
             </div>
@@ -41,8 +46,8 @@
             Se ha descargado correctamente
             </div>
             <br>
-            <label>By Souls</label>
-            <img src="img/pepega.gif" width="60px" heigh="auto"/>
+            <!-- <label>By Souls</label>
+            <img src="img/pepega.gif" width="60px" heigh="auto"/> -->
             
             <!-- TABLA -->
             <table class="table" style="width:75%;" id="tabla">

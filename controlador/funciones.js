@@ -1,3 +1,25 @@
+window.addEventListener('DOMContentLoaded',function(){
+    const btn = document.getElementById('descargar_todo');
+    $( "#selec_compresion")
+    .change(function() {
+        $( "#selec_compresion :selected" ).each(function() {
+            const opcion = $( this ).text();
+            if(opcion == "ZIP"){
+                console.log('generar cambio');
+                $("#descargar_todo").removeAttr('disabled');
+                $("#descargar_todo").removeAttr('style');
+            }
+            else{
+                btn.style.pointerEvents = "none";
+                btn.disabled = true;
+            }
+        });
+    })
+    .trigger( "change" );
+});
+
+
+
 function EliminarTemporal(){
     $.post("http://localhost/Descarga_Imagenes/controlador/eliminar.php",
     {},
@@ -70,6 +92,8 @@ function DescargarTodo(){
     });
     if(imagenes.length == 0){
         alert("Ingrese una imagen");
+        $("#mensaje_descarga").attr("hidden","hidden");
+        return;
     }
     else if(imagenes.length > 0){
         $.post("http://localhost/Descarga_Imagenes/controlador/descarga_multiple.php",
@@ -79,6 +103,7 @@ function DescargarTodo(){
                     alert("Se ha descargado todas las imagenes");
                     window.location.href="controlador/descarga.zip";
                     $("#mensaje_descarga").attr("hidden","hidden");
+                    VaciarImagenes();
                 }
                 else if(result.trim() == "exito_no_compresion")
                 {
@@ -91,6 +116,19 @@ function DescargarTodo(){
             }
         );
     }
+}
+
+function VaciarImagenes(){
+    $.post("http://localhost/Descarga_Imagenes/controlador/vaciar_img.php",
+    {},
+    function(result){
+        if(result.trim() === "exito"){
+            console.log('Se ha vaciado con exito las imagenes');
+        }
+        else{
+            console.log('No se ha podido borrar las imagenes');
+        }
+    });
 }
 
 function Descargar(url){

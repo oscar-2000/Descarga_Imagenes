@@ -4,13 +4,6 @@ $opcion = $_POST["opcion"];
 if(isset($imagenes) && isset($opcion)){
     try
     {
-        //OBTENER EXTENSION
-        //NO SE PODRA POR TEMAS DE PERMISO AL SERVIDOR QUE ESTA ALOJADO
-        /* $convertir = implode(",",$imagenes);
-        $obtener_size = getimagesize($convertir);
-        $pre_extension = $obtener_size["mime"];
-        $extension = ".".substr($pre_extension,6); */
-
         /* ARCHIVO ZIP */
         $archivo_zip = "descarga.zip";
         $zip = new ZipArchive();
